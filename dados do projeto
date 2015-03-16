@@ -1,0 +1,47 @@
+1) O banco de dados tem que ser POSTGRESQL, 9.2 ou superior.
+
+2) Tem que possui uma tela solicitando login e senha. e Bloquear acesso as telas, se não estiver logado.
+
+3) (http://isac.vv.si/Maps/index.php) Na tela para Salvar uma posição, tem que ser possivel localizar pelo endereço, ou navegando com mouse até o ponto desejado.
+
+4) (http://isac.vv.si/Maps/index.php) Para Salvar uma posição, tem que abrir uma tela, onde eu possa digitar, o Nome do Ponto que estou salvando.
+
+5) Em http://isac.vv.si/Maps2/ está perfeito não precisa alterar nada.
+
+6) O projeto vai roda em Servidor Linux e talvez Windows, evitar ao maximo o uso de recursos nativos do sistema operacional, para que exista uma instalação padrão.
+
+7) O projeto deve ser entregue com todo codigo-fonte.
+
+
+
+
+CREATE  TABLE `data_base`.`users` (
+  `id_user` INT NOT NULL AUTO_INCREMENT ,
+  `nm_user` VARCHAR(45) NOT NULL ,
+  `pwd_user` VARCHAR(165) NOT NULL ,
+  `email_user` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id_user`) )
+ENGINE = InnoDB;
+
+
+CREATE  TABLE `data_base`.`coordenadas` (
+  `id_coordenada` INT NOT NULL AUTO_INCREMENT ,
+  `id_user` INT NOT NULL ,
+  `latitude` VARCHAR(45) NULL ,
+  `longitude` VARCHAR(45) NULL ,
+  `nm_coordenada` VARCHAR(45) NULL ,
+  `cor_coordenada` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id_coordenada`) ,
+  INDEX `fk_coordenadas_users` (`id_user` ASC) ,
+  CONSTRAINT `fk_coordenadas_users`
+    FOREIGN KEY (`id_user` )
+    REFERENCES `isac`.`users` (`id_user` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+INSERT INTO `data_base`.`users` ( `nm_user`, `pwd_user`, `email_user`) VALUES ('Admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@logosys.com');
+
+INSERT INTO `data_base`.`coordenadas` (`id_user`, `latitude`, `longitude`, `nm_coordenada`, `cor_coordenada`) VALUES (1, '-28.7390464', '-49.3605721', 'Teste1', 'Vermelho');
